@@ -1,0 +1,113 @@
+{
+  "_meta": {
+    "description": "Portable exercise catalog. Paths are relative to the cloned exercises repo set via 'hiring setup --exercises-repo'. Copy to exercise-map.json and adjust ids/paths to match your repo. The agent reads this instead of navigating repo folders.",
+    "seniority_budget": {
+      "senior": { "target_hours": 2.0 },
+      "mid": { "target_hours": 1.5 },
+      "junior": { "target_hours": 1.0 }
+    }
+  },
+  "exercises": [
+    {
+      "id": "docker-postgres",
+      "name": "Run a PostgreSQL container with a host volume",
+      "topic": "Containers",
+      "path": "topics/containers/containerized_db_persistent_storage.md",
+      "difficulty": "easy",
+      "time_min": 10,
+      "seniority": ["junior", "mid", "senior"],
+      "tags": ["docker", "containers", "storage"]
+    },
+    {
+      "id": "docker-multistage",
+      "name": "Multi-stage build to shrink an image",
+      "topic": "Containers",
+      "path": "topics/containers/multi_stage_builds.md",
+      "difficulty": "medium",
+      "time_min": 10,
+      "seniority": ["mid", "senior"],
+      "tags": ["docker", "containers", "build"]
+    },
+    {
+      "id": "vpc-basics",
+      "name": "VPC and its components",
+      "topic": "Cloud",
+      "path": "topics/aws/exercises/new_vpc/",
+      "difficulty": "easy",
+      "time_min": 10,
+      "seniority": ["junior", "mid", "senior"],
+      "tags": ["aws", "cloud", "vpc", "networking"]
+    },
+    {
+      "id": "terraform-ec2",
+      "name": "Create an instance with a Terraform module",
+      "topic": "Terraform",
+      "path": "topics/terraform/exercises/launch_ec2_instance/",
+      "difficulty": "medium",
+      "time_min": 15,
+      "seniority": ["mid", "senior"],
+      "tags": ["terraform", "iac", "cloud"]
+    },
+    {
+      "id": "terraform-module-output",
+      "name": "Terraform module that returns an output",
+      "topic": "Terraform",
+      "path": "topics/terraform/exercises/terraform_local_provider/",
+      "difficulty": "medium",
+      "time_min": 15,
+      "seniority": ["mid", "senior"],
+      "tags": ["terraform", "iac", "modules"]
+    },
+    {
+      "id": "ansible-dir",
+      "name": "Create a directory idempotently with Ansible",
+      "topic": "Ansible",
+      "path": "topics/ansible/",
+      "difficulty": "easy",
+      "time_min": 5,
+      "seniority": ["junior", "mid", "senior"],
+      "tags": ["ansible", "iac", "configuration-management"]
+    },
+    {
+      "id": "linux-nav",
+      "name": "Linux navigation and file operations",
+      "topic": "Linux",
+      "path": "topics/linux/exercises/navigation/",
+      "difficulty": "easy",
+      "time_min": 5,
+      "seniority": ["junior", "mid"],
+      "tags": ["linux", "shell", "basics"]
+    },
+    {
+      "id": "git-branch",
+      "name": "Git branching and commit verification",
+      "topic": "Git",
+      "path": "topics/git/branch_01.md",
+      "difficulty": "easy",
+      "time_min": 5,
+      "seniority": ["junior", "mid"],
+      "tags": ["git", "version-control"]
+    },
+    {
+      "id": "reasoning-migration",
+      "name": "Pipeline & registry migration reasoning",
+      "topic": "Reasoning",
+      "path": null,
+      "difficulty": "advanced",
+      "time_min": 20,
+      "seniority": ["mid", "senior"],
+      "tags": ["cicd", "architecture", "reasoning", "migration"]
+    },
+    {
+      "id": "python-max-product",
+      "name": "Maximum product of three integers",
+      "topic": "Programming",
+      "path": null,
+      "difficulty": "medium",
+      "time_min": 15,
+      "seniority": ["junior", "mid", "senior"],
+      "tags": ["python", "algorithms", "programming"],
+      "prompt": "Given a list of integers, write a Python function that returns the maximum product obtainable from three numbers. Must handle: fewer than three elements, the two-negatives case, an O(n log n) sort solution, and discussion of the O(n) single-pass solution with O(1) extra memory."
+    }
+  ]
+}

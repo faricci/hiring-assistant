@@ -1,0 +1,35 @@
+{
+  "_meta": {
+    "description": "Stack presets that select exercises for this team. Exercise ids resolve against the shared exercise catalog in ../../exercises/exercise-map.json (or the example map). Paths in that catalog point into the external exercises repo configured via 'hiring setup --exercises-repo'.",
+    "usage": "Match the candidate stack to a preset, always include standard exercises, then add extended ones whose tags/seniority match the CV."
+  },
+  "standard_exercises": [
+    "docker-postgres",
+    "vpc-basics",
+    "terraform-ec2",
+    "linux-nav",
+    "git-branch"
+  ],
+  "stack_presets": {
+    "platform_engineer": {
+      "focus": "builds internal platforms and services",
+      "extended_exercises": ["docker-multistage", "terraform-module-output", "reasoning-migration", "python-max-product"]
+    },
+    "delivery_engineer": {
+      "focus": "pipelines, IaC, cloud operations",
+      "extended_exercises": ["docker-multistage", "terraform-module-output", "ansible-dir", "reasoning-migration"]
+    },
+    "cloud_engineer": {
+      "focus": "cloud infrastructure and networking",
+      "extended_exercises": ["terraform-module-output", "vpc-basics", "reasoning-migration"]
+    },
+    "cicd_specialist": {
+      "focus": "CI/CD design and automation",
+      "extended_exercises": ["docker-multistage", "reasoning-migration"]
+    }
+  },
+  "mandatory_for_p1": {
+    "id": "python-max-product",
+    "note": "For P1, blended-with-P1, or P1-to-verify candidates, always include and run the 'maximum product of three integers' Python exercise. Do not replace it or make it optional."
+  }
+}

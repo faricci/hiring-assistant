@@ -1,0 +1,91 @@
+{
+  "id": "devops-platform",
+  "display_name": "DevOps / Platform Engineering",
+  "description": "Hiring pack for engineers who build internal platforms and delivery pipelines. Two contribution archetypes in one position: platform/application engineering and delivery/DevOps engineering.",
+  "default_language": "en",
+  "stack_order": [
+    "Terraform / IaC",
+    "AWS / Cloud",
+    "Containers",
+    "CI/CD",
+    "Ansible",
+    "Linux / Shell",
+    "Git"
+  ],
+  "seniority_budget": {
+    "senior": { "target_hours": 2.0, "focus": "depth, architecture, trade-offs, production scenarios" },
+    "mid":    { "target_hours": 1.5, "focus": "practical hands-on, troubleshooting, breadth" },
+    "junior": { "target_hours": 1.0, "focus": "fundamentals, learning speed, ownership potential" }
+  },
+  "archetypes": ["platform_engineering", "delivery_engineering", "blended", "unclear"],
+  "score_model": {
+    "behaviour": {
+      "weight": 0.40,
+      "dimensions": [
+        "energy",
+        "intellectual_honesty",
+        "communication",
+        "curiosity",
+        "teamwork",
+        "proactivity",
+        "business_awareness",
+        "resilience"
+      ]
+    },
+    "skills": {
+      "weight": 0.35,
+      "dimensions": [
+        "problem_solving",
+        "ownership",
+        "adaptability",
+        "architectural_thinking",
+        "technical_leadership"
+      ]
+    },
+    "knowledge": {
+      "weight": 0.25,
+      "dimensions": [
+        "technical_depth",
+        "stack_breadth",
+        "ai_awareness",
+        "cloud_depth"
+      ]
+    }
+  },
+  "holistic_axes": [
+    "attitude",
+    "logic",
+    "technical_skill",
+    "delivery_skill",
+    "theory",
+    "domain_knowledge",
+    "overall_rating"
+  ],
+  "recommendation_thresholds": {
+    "strong": 4.0,
+    "recommend": 3.5,
+    "weak": 3.0,
+    "behaviour_floor": 3.0
+  },
+  "question_tag_map": {
+    "Behavioural": ["attitude", "teamwork", "ownership", "soft-skills"],
+    "Problem Solving": ["problem-solving", "logic", "troubleshooting"],
+    "CI/CD": ["cicd", "jenkins", "github-actions", "gitlab-ci", "automation", "pipeline"],
+    "IaC": ["iac", "terraform", "ansible", "infrastructure-as-code"],
+    "AWS": ["aws", "cloud", "ec2", "lambda", "ecs", "iam", "vpc", "s3"],
+    "Containers": ["docker", "kubernetes", "containers", "k8s", "ecs", "eks", "helm"],
+    "Monitoring": ["monitoring", "observability", "prometheus", "grafana", "logging", "tracing"],
+    "Linux": ["linux", "bash", "python", "scripting", "shell"],
+    "Platform": ["platform-engineering", "internal-tools", "developer-experience"],
+    "AI": ["ai", "copilot", "llm", "prompt-engineering"],
+    "Scenario": ["scenario", "problem-solving", "architecture", "incident"],
+    "Exercises": ["exercises", "hands-on", "practical"]
+  },
+  "question_bank": "question-bank.md",
+  "question_bank_index": "question-bank-index.json",
+  "exercise_presets": "exercise-presets.json",
+  "templates": {
+    "en": "templates/interview-en.md",
+    "it": "templates/interview-it.md"
+  }
+}

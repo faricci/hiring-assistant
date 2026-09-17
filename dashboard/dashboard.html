@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hiring Assistant — Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+         display: flex; height: 100vh; background: #f5f6f8; color: #24292f; }
+  #sidebar { width: 300px; min-width: 300px; background: #1f2430; color: #cdd6e4;
+             padding: 20px 0; overflow-y: auto; display: flex; flex-direction: column; }
+  #sidebar h1 { font-size: 16px; padding: 0 20px 14px; border-bottom: 1px solid #3a3f4b;
+                margin-bottom: 10px; color: #a6b3d8; }
+  .cat { font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+         padding: 16px 20px 6px; color: #6b7280; }
+  .nav { padding: 8px 20px; cursor: pointer; font-size: 14px; display: flex; gap: 8px; }
+  .nav:hover { background: #2b3140; }
+  .nav.active { background: #343b4d; color: #a6b3d8; }
+  #sidebar .foot { margin-top: auto; padding: 14px 20px; border-top: 1px solid #3a3f4b;
+                   font-size: 12px; color: #6b7280; }
+  #main { flex: 1; overflow-y: auto; padding: 32px 44px; }
+  .content { max-width: 900px; }
+  .content h1, .content h2 { border-bottom: 1px solid #e2e4e8; padding-bottom: 6px; margin: 22px 0 12px; }
+  .content h3 { margin: 18px 0 8px; }
+  .content p, .content li { line-height: 1.6; }
+  .content ul, .content ol { margin-left: 22px; }
+  .content code { background: #eef0f3; padding: 2px 6px; border-radius: 4px; font-size: 90%; }
+  .content pre { background: #1f2430; color: #e6e9ef; padding: 14px 16px; border-radius: 8px;
+                 overflow-x: auto; margin: 12px 0; }
+  .content pre code { background: none; color: inherit; padding: 0; }
+  .content table { border-collapse: collapse; margin: 12px 0; width: 100%; }
+  .content th, .content td { border: 1px solid #dfe1e5; padding: 7px 10px; text-align: left; }
+  .content th { background: #f0f2f5; }
+  .flow { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+  .step { flex: 1; min-width: 150px; background: #fff; border: 1px solid #e2e4e8;
+          border-radius: 10px; padding: 14px; }
+  .step .n { display: inline-block; width: 24px; height: 24px; border-radius: 50%;
+             background: #4c6ef5; color: #fff; text-align: center; line-height: 24px; font-size: 13px; }
+  .step h4 { margin: 8px 0 4px; font-size: 14px; }
+  .step p { font-size: 12.5px; color: #5b6270; }
+  .cmd { background: #1f2430; color: #e6e9ef; padding: 12px 14px; border-radius: 8px;
+         font-family: 'SFMono-Regular', Consolas, monospace; font-size: 13px; margin: 8px 0; white-space: pre; overflow-x:auto; }
+  .btn { background: #4c6ef5; color: #fff; border: none; padding: 9px 16px; border-radius: 7px;
+         cursor: pointer; font-size: 13px; }
+  .btn:hover { background: #3b5bdb; }
+  .muted { color: #6b7280; font-size: 13px; }
+  .pill { display:inline-block; background:#eef0f3; border-radius: 20px; padding: 2px 10px; font-size: 12px; margin: 2px; }
+</style>
+</head>
+<body>
+<div id="sidebar">
+  <h1>🧭 Hiring Assistant</h1>
+  <div class="cat">Overview</div>
+  <div class="nav active" data-view="home">🏠 Process &amp; commands</div>
+  <div class="cat">Load a local file</div>
+  <div class="nav" data-view="viewer">📄 Open .md / .json</div>
+  <div class="cat">Reference (served mode)</div>
+  <div class="nav" data-file="/teams/devops-platform/profile.md">👤 Team profile</div>
+  <div class="nav" data-file="/teams/devops-platform/question-bank.md">❓ Question bank</div>
+  <div class="nav" data-file="/teams/devops-platform/templates/interview-en.md">📝 Template (EN)</div>
+  <div class="nav" data-file="/teams/README.md">🧩 Add a team</div>
+  <div class="nav" data-file="/exercises/README.md">🏋️ Exercises</div>
+  <div class="foot">
+    Runs offline. Candidate files load locally via your browser and are never uploaded.
+  </div>
+</div>
+<div id="main"><div class="content" id="content"></div></div>
+
+<script>
+const content = document.getElementById('content');
+
+const HOME = `
+<h1>Hiring process</h1>
+<div class="flow">
+  <div class="step"><span class="n">1</span><h4>CV → Markdown</h4><p>Convert the CV PDF to markdown for analysis.</p></div>
+  <div class="step"><span class="n">2</span><h4>Fit &amp; flags</h4><p>Evaluate coverage and red/yellow/green flags; generate the prep file.</p></div>
+  <div class="step"><span class="n">3</span><h4>Interview 1</h4><p>Knowledge &amp; motivation, career path, behaviour.</p></div>
+  <div class="step"><span class="n">4</span><h4>Interview 2</h4><p>Technical exercises only.</p></div>
+  <div class="step"><span class="n">5</span><h4>Take-home + transcript</h4><p>Optional exercise, then transcript → scorecard.</p></div>
+</div>
+
+<h2>Commands</h2>
+<p class="muted">Run from the project root. Use <code>python hiring.py</code>, or the wrappers <code>hiring.bat</code> / <code>./hiring.sh</code> / <code>./hiring.ps1</code>.</p>
+<div class="cmd">python hiring.py setup                         # choose team + exercises repo
+python hiring.py teams                         # list team packs
+python hiring.py cv2md candidates/cv_pdf/cv.pdf  # PDF -> candidates/cv_md/
+python hiring.py prep --name "Jane Doe" --seniority senior --language en
+python hiring.py index                         # rebuild question-bank index
+python hiring.py scorecard init    --name "Jane Doe"
+python hiring.py scorecard summary --name "Jane Doe"
+python hiring.py scorecard compare
+python hiring.py dashboard                     # serve this dashboard (needed for reference links)</div>
+
+<h2>Modularity</h2>
+<p>The process is <b>team-agnostic</b>. Team-specific content (profile, questions, scoring, exercises, templates) lives in a <span class="pill">team pack</span> under <code>teams/&lt;id&gt;/</code>, selected with <code>hiring setup --team &lt;id&gt;</code>. Exercises come from a public repo you clone and point to.</p>
+
+<h2>Privacy</h2>
+<p>No company, candidate, colleague or stakeholder data ships in this repo. Everything under <code>candidates/</code> is gitignored. This dashboard loads files locally in your browser and uploads nothing.</p>
+`;
+
+const VIEWER = `
+<h1>Open a local file</h1>
+<p class="muted">Pick a <code>.md</code> or <code>.json</code> from <code>candidates/</code> (prep files, scorecards) or anywhere else. It is read in your browser only.</p>
+<p><input type="file" id="picker" accept=".md,.json,.txt"></p>
+<div id="rendered"></div>
+`;
+
+function renderMarkdown(text) { return marked.parse(text); }
+function renderJson(text) {
+  try { return '<pre>' + JSON.stringify(JSON.parse(text), null, 2)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</pre>'; }
+  catch { return '<pre>' + text.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</pre>'; }
+}
+
+function showHome() { content.innerHTML = HOME; }
+function showViewer() {
+  content.innerHTML = VIEWER;
+  document.getElementById('picker').addEventListener('change', ev => {
+    const file = ev.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const out = document.getElementById('rendered');
+      out.innerHTML = file.name.endsWith('.json')
+        ? renderJson(reader.result) : renderMarkdown(reader.result);
+    };
+    reader.readAsText(file);
+  });
+}
+
+async function showFile(path) {
+  content.innerHTML = '<p class="muted">Loading ' + path + ' …</p>';
+  try {
+    const res = await fetch(path);
+    if (!res.ok) throw new Error(res.status);
+    const text = await res.text();
+    content.innerHTML = path.endsWith('.json') ? renderJson(text) : renderMarkdown(text);
+  } catch (e) {
+    content.innerHTML = '<h1>Reference files need served mode</h1>' +
+      '<p class="muted">Opening via <code>file://</code> blocks reading sibling files. ' +
+      'Serve the folder, e.g.:</p><div class="cmd">python -m http.server 8080</div>' +
+      '<p class="muted">then open <code>http://localhost:8080/dashboard/dashboard.html</code>. ' +
+      'Or use "Open .md / .json" to load a file directly.</p>';
+  }
+}
+
+document.querySelectorAll('.nav').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.nav').forEach(n => n.classList.remove('active'));
+    el.classList.add('active');
+    if (el.dataset.view === 'home') showHome();
+    else if (el.dataset.view === 'viewer') showViewer();
+    else if (el.dataset.file) showFile(el.dataset.file);
+  });
+});
+
+showHome();
+</script>
+</body>
+</html>

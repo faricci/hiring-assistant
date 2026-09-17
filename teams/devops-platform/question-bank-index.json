@@ -1,0 +1,130 @@
+{
+  "_meta": {
+    "description": "Structured index of the team question bank. Read this instead of the full file, then use start_line/end_line to read only relevant sections.",
+    "total_lines": 128,
+    "generated_at": "2026-09-17 00:00",
+    "generator": "hiring index"
+  },
+  "categories": [
+    {
+      "name": "Behavioural",
+      "start_line": 27,
+      "end_line": 35,
+      "question_count": 6,
+      "exercise_count": 0,
+      "levels": { "base": 3, "intermediate": 2, "advanced": 1 },
+      "has_subsections": false,
+      "tags": ["attitude", "teamwork", "ownership", "soft-skills"]
+    },
+    {
+      "name": "Problem Solving & Logic",
+      "start_line": 36,
+      "end_line": 42,
+      "question_count": 4,
+      "exercise_count": 0,
+      "levels": { "base": 1, "intermediate": 2, "advanced": 1 },
+      "has_subsections": false,
+      "tags": ["problem-solving", "logic", "troubleshooting"]
+    },
+    {
+      "name": "CI/CD & Automation",
+      "start_line": 43,
+      "end_line": 51,
+      "question_count": 6,
+      "exercise_count": 0,
+      "levels": { "base": 2, "intermediate": 2, "advanced": 2 },
+      "has_subsections": false,
+      "tags": ["cicd", "jenkins", "github-actions", "gitlab-ci", "automation", "pipeline"]
+    },
+    {
+      "name": "IaC",
+      "start_line": 52,
+      "end_line": 59,
+      "question_count": 5,
+      "exercise_count": 0,
+      "levels": { "base": 1, "intermediate": 3, "advanced": 1 },
+      "has_subsections": false,
+      "tags": ["iac", "terraform", "ansible", "infrastructure-as-code"]
+    },
+    {
+      "name": "AWS & Cloud",
+      "start_line": 60,
+      "end_line": 67,
+      "question_count": 5,
+      "exercise_count": 0,
+      "levels": { "base": 1, "intermediate": 3, "advanced": 1 },
+      "has_subsections": false,
+      "tags": ["aws", "cloud", "ec2", "lambda", "ecs", "iam", "vpc", "s3"]
+    },
+    {
+      "name": "Containers & Orchestration",
+      "start_line": 68,
+      "end_line": 75,
+      "question_count": 5,
+      "exercise_count": 0,
+      "levels": { "base": 1, "intermediate": 3, "advanced": 1 },
+      "has_subsections": false,
+      "tags": ["docker", "kubernetes", "containers", "k8s", "ecs", "eks", "helm"]
+    },
+    {
+      "name": "Monitoring & Observability",
+      "start_line": 76,
+      "end_line": 82,
+      "question_count": 4,
+      "exercise_count": 0,
+      "levels": { "base": 2, "intermediate": 1, "advanced": 1 },
+      "has_subsections": false,
+      "tags": ["monitoring", "observability", "prometheus", "grafana", "logging", "tracing"]
+    },
+    {
+      "name": "Linux & Scripting",
+      "start_line": 83,
+      "end_line": 89,
+      "question_count": 4,
+      "exercise_count": 0,
+      "levels": { "base": 1, "intermediate": 2, "advanced": 1 },
+      "has_subsections": false,
+      "tags": ["linux", "bash", "python", "scripting", "shell"]
+    },
+    {
+      "name": "Platform Engineering & Developer Experience",
+      "start_line": 90,
+      "end_line": 96,
+      "question_count": 4,
+      "exercise_count": 0,
+      "levels": { "base": 1, "intermediate": 2, "advanced": 1 },
+      "has_subsections": false,
+      "tags": ["platform-engineering", "internal-tools", "developer-experience"]
+    },
+    {
+      "name": "AI & Modern Tooling",
+      "start_line": 97,
+      "end_line": 103,
+      "question_count": 4,
+      "exercise_count": 0,
+      "levels": { "base": 1, "intermediate": 2, "advanced": 1 },
+      "has_subsections": false,
+      "tags": ["ai", "copilot", "llm", "prompt-engineering"]
+    },
+    {
+      "name": "Scenario-based",
+      "start_line": 104,
+      "end_line": 109,
+      "question_count": 3,
+      "exercise_count": 0,
+      "levels": { "base": 0, "intermediate": 0, "advanced": 3 },
+      "has_subsections": false,
+      "tags": ["scenario", "problem-solving", "architecture", "incident"]
+    },
+    {
+      "name": "Technical Exercises",
+      "start_line": 110,
+      "end_line": 128,
+      "question_count": 0,
+      "exercise_count": 10,
+      "levels": { "base": 0, "intermediate": 0, "advanced": 0 },
+      "has_subsections": false,
+      "tags": ["exercises", "hands-on", "practical"]
+    }
+  ]
+}
