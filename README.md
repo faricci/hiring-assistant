@@ -129,6 +129,7 @@ dashboard/dashboard.html  # offline hiring dashboard (process, commands, file vi
 .claude/agents/           # Claude Code subagent (thin stub, see knowledge/)
 CLAUDE.md                 # Claude Code project instructions (thin stub, see knowledge/)
 knowledge/                # single source of truth: agent behavior, ground rules, cognitive framework
+tests/                    # pytest suite for hiring/ (run on every commit, see Development)
 ```
 
 ## Dashboard
@@ -154,6 +155,21 @@ judgment-heavy steps).
   change the score.
 - **Privacy** — candidates are invited to anonymize companies, clients and systems;
   no identifiers are ever committed.
+
+## Development
+
+The Python core (`hiring/`) has a pytest suite in `tests/`; it runs fully
+isolated from your real `config/hiring.config.json` and `candidates/`, using a
+synthetic team pack.
+
+```bash
+pip install -r requirements-dev.txt   # pytest + pre-commit, dev-only, not needed to run the CLI
+python -m pytest                      # run the suite
+pre-commit install                    # once: wire it into `git commit`
+```
+
+After `pre-commit install`, every `git commit` runs the full suite first and is
+blocked if anything fails — see `.pre-commit-config.yaml` / `pytest.ini`.
 
 ## License
 
