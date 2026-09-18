@@ -7,6 +7,23 @@ team-specific content lives in swappable **team packs**.
 > Privacy by design: no company, candidate, colleague or stakeholder data ships in
 > this repo. Everything under `candidates/` is gitignored. Team packs are generic.
 
+## Works with GitHub Copilot and Claude Code
+
+The same **Hiring Assistant** agent and the same phase instructions
+(`.github/instructions/`) drive both editors — pick either, or switch anytime:
+
+| Editor | Agent definition | Auto-loaded project instructions |
+|--------|-------------------|-----------------------------------|
+| GitHub Copilot | [.github/agents/hiring-assistant.agent.md](.github/agents/hiring-assistant.agent.md) | [.github/copilot-instructions.md](.github/copilot-instructions.md) |
+| Claude Code | [.claude/agents/hiring-assistant.md](.claude/agents/hiring-assistant.md) | [CLAUDE.md](CLAUDE.md) |
+
+Each of those four files is a thin, tool-specific stub (frontmatter/path only
+the tool cares about) that points to one shared source of truth in
+[knowledge/](knowledge/): [hiring-assistant-agent.md](knowledge/hiring-assistant-agent.md)
+for the agent's behavior, [ground-rules.md](knowledge/ground-rules.md) for the
+always-loaded rules. Edit those two files to change how the assistant works —
+never the stubs.
+
 ## The process
 
 ```
@@ -26,12 +43,15 @@ conversion is the only optional dependency).
 
 > These commands are shown for reference. In practice: `setup`, `dashboard`,
 > `cv2md` and `index` are mechanical, run them yourself, anytime, no AI needed.
-> For the judgment-heavy steps (interview prep, scoring), select the **Hiring
-> Assistant** agent in your editor and ask in plain language, e.g. "help me
-> evaluate and create the first interview preparation for Jane Doe" — it follows
-> [.github/agents/hiring-assistant.agent.md](.github/agents/hiring-assistant.agent.md),
-> reads the CV, and runs `prep`/`scorecard` for you as part of the conversation,
-> mixing them with its own reading/judgment steps.
+> For the judgment-heavy steps (interview prep, scoring), ask the **Hiring
+> Assistant** agent in plain language, e.g. "help me evaluate and create the
+> first interview preparation for Jane Doe" — it reads the CV, and runs
+> `prep`/`scorecard` for you as part of the conversation, mixing them with its
+> own reading/judgment steps. Works the same way in **GitHub Copilot**
+> ([.github/agents/hiring-assistant.agent.md](.github/agents/hiring-assistant.agent.md))
+> and **Claude Code** ([.claude/agents/hiring-assistant.md](.claude/agents/hiring-assistant.md)
+> + [CLAUDE.md](CLAUDE.md)) — both editors follow the same phase instructions
+> under `.github/instructions/`.
 
 ```bash
 # 1. Configure: pick a team pack and (optionally) point to a cloned exercises repo
@@ -103,8 +123,10 @@ teams/<id>/               # team packs (profile, question bank, exercises, templ
 exercises/                # exercise map + how to point at a cloned repo
 candidates/               # local workspace (gitignored: CVs, prep, transcripts, scorecards)
 dashboard/dashboard.html  # offline hiring dashboard (process, commands, file viewer)
-.github/                  # hiring-assistant agent + phase instructions
-knowledge/                # cognitive framework the agent follows
+.github/                  # Copilot agent + phase instructions (thin stub, see knowledge/)
+.claude/agents/           # Claude Code subagent (thin stub, see knowledge/)
+CLAUDE.md                 # Claude Code project instructions (thin stub, see knowledge/)
+knowledge/                # single source of truth: agent behavior, ground rules, cognitive framework
 ```
 
 ## Dashboard
