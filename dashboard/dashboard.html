@@ -175,6 +175,23 @@ async function showFile(path) {
   }
 }
 
+// Delegated handler for links inside rendered Markdown (e.g. embedded exercise
+// prompts in a prep file). Same-page "#exercise-<id>" anchors and target="_blank"
+// links (e.g. "Open source exercise from the bank") are left alone so the browser
+// handles them natively; only same-origin relative links are routed through
+// showFile() so they stay inside the dashboard instead of a full navigation.
+content.addEventListener('click', ev => {
+  const a = ev.target.closest('a');
+  if (!a || !content.contains(a)) return;
+  if (a.target === '_blank') return;
+  const href = a.getAttribute('href') || '';
+  if (!href || href.startsWith('#') || href.includes('://')) return;
+  if (href.startsWith('/')) {
+    ev.preventDefault();
+    showFile(href);
+  }
+});
+
 document.querySelectorAll('.nav').forEach(el => {
   el.addEventListener('click', () => {
     document.querySelectorAll('.nav').forEach(n => n.classList.remove('active'));

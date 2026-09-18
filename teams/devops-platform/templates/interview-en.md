@@ -139,20 +139,47 @@
 
 ## Technical exercises
 
-> **Source**: shared exercise catalog (see `../exercise-presets.json` and
-> `../../exercises/`). Standard exercises below are always included; the agent adds
-> extended ones based on the candidate's stack. Order: Terraform / IaC → AWS / Cloud →
-> Containers → CI/CD → Ansible → Linux / Shell → Git → candidate-specific.
+> **One-page workflow**: every selected exercise's full prompt is embedded below —
+> run the whole round from this file, no need to open the exercises repo. The
+> table is an in-file index: click a title to jump to its embedded prompt in this
+> same document; solutions are never embedded here. Source: shared exercise
+> catalog (see `../exercise-presets.json` and `../../exercises/`). Order:
+> Terraform / IaC → AWS / Cloud → Containers → CI/CD → Ansible → Linux / Shell →
+> Git → candidate-specific.
 
-### Terraform / IaC
-*Create a Terraform module that launches one instance and returns its private DNS as output (module name `my_instance`).*
+| # | Exercise | Topic | Difficulty | Time |
+|---|----------|-------|------------|------|
+| 1 | [Terraform / IaC — instance module](#exercise-terraform-ec2) | Terraform | Medium | 15 min |
+| 2 | [Containers — Postgres with host volume](#exercise-docker-postgres) | Containers | Easy | 10 min |
+<!-- AGENT-FILL: exercise_table_rows | Add one row per additional selected exercise (standard + stack-matched extended, per exercise-presets.json), each linking to its own embedded anchor below as #exercise-<id>. For P1/blended-with-P1/P1-to-verify candidates always add the mandatory "python-max-product" row. -->
 
-### Containers (Docker)
-*Run a PostgreSQL container with the password in an environment variable and a host
-volume for the data directory; verify it is running. Explain the benefits and risks
-of host storage versus container storage.*
+<a id="exercise-terraform-ec2"></a>
+### Terraform / IaC — instance module
 
-<!-- AGENT-FILL: extra_topics | Add Q&A and exercises for candidate-specific technologies not covered above (e.g. Kubernetes, ArgoCD, Go). For P1, blended-with-P1, or P1-to-verify candidates, always include the mandatory "maximum product of three integers" Python exercise and mark it MANDATORY P1 — never replace it with another Python exercise. Order Terraform / IaC first. -->
+**Prompt**: Create a Terraform module that launches one instance and returns its private DNS as output (module name `my_instance`).
+
+> **Expected evidence**: a working `output` block wired to the resource attribute,
+> sane variable defaults, and a short explanation of why the output is useful
+> (e.g. feeding another module). ⚠️ hardcoded values instead of variables;
+> 🚫 no working output.
+
+*(Inline exercise — authored directly in this template, no bank source file to link.)*
+
+<a id="exercise-docker-postgres"></a>
+### Containers (Docker) — Postgres with host volume
+
+**Prompt**: Run a PostgreSQL container with the password in an environment variable
+and a host volume for the data directory; verify it is running. Explain the
+benefits and risks of host storage versus container storage.
+
+> **Expected evidence**: correct `-e`/`-v` usage (or Compose equivalent), a working
+> verification step (e.g. `docker exec ... psql`), and a clear articulation of the
+> durability/portability trade-off. 🚫 storing the password in the image or
+> skipping verification.
+
+*(Inline exercise — authored directly in this template, no bank source file to link.)*
+
+<!-- AGENT-FILL: extra_exercises | For every additional exercise you select from exercise-map.json (standard + stack-matched extended, per exercise-presets.json): (1) add a row to the table above linking to #exercise-<id>; (2) add an embedded section here with `<a id="exercise-<id>"></a>`, a heading, a "**Prompt**:" line with the full prompt copied from the bank file (or the map entry's own "prompt" field when "path" is null) — never the solution; (3) an "> **Expected evidence**:" block; (4) if the map entry has a real "path", one more line: `<a href="file:///<exercises_repo>/<path>" target="_blank" rel="noopener">Open source exercise from the bank</a>` (resolve exercises_repo from config/hiring.config.json) — otherwise write "*(Inline exercise — no bank source file.)*". If a map entry has neither "path" nor "prompt" (an incomplete bank entry), do not invent a prompt and do not edit the bank: skip it and add a one-line flag instead, e.g. "⚠️ `<id>` has no prompt in exercise-map.json — flagged, not used this round." For P1, blended-with-P1, or P1-to-verify candidates, always include the mandatory "python-max-product" exercise (embed its "prompt" field verbatim) and mark it MANDATORY P1 — never replace it with another Python exercise. Order Terraform / IaC first. -->
 
 ---
 

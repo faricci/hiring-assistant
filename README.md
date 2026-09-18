@@ -24,6 +24,8 @@ for the agent's behavior, [ground-rules.md](knowledge/ground-rules.md) for the
 always-loaded rules. Edit those two files to change how the assistant works —
 never the stubs.
 
+Tested with Haiku 4.5
+
 ## The process
 
 ```
