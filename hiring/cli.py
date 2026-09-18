@@ -14,20 +14,28 @@ from . import cv2md as cv2md_cmd
 from . import dashboard as dashboard_cmd
 
 EPILOG = """\
-Typical flow:
-  hiring setup                                        # you run this once: pick a team + exercises repo
+This is a DETERMINISTIC toolkit first: every command below runs standalone,
+no AI required. An AI coding agent is an OPTIONAL layer on top, useful only
+for the judgment-heavy steps (reading a CV, writing tailored questions,
+evaluating a transcript, scoring).
 
-  From here on, talk to the AI agent in your editor (e.g. "prep Jane Doe's CV") and
-  it runs the commands below for you as part of the conversation — you don't need
-  to type them yourself:
-    hiring cv2md candidates/cv_pdf/cv.pdf                # CV PDF -> markdown
+Run these yourself, anytime, no agent needed:
+  hiring setup                                        # once: pick a team + exercises repo
+  hiring dashboard                                     # browse process, commands, candidate files
+  hiring cv2md candidates/cv_pdf/cv.pdf                # CV PDF -> markdown
+  hiring index                                         # rebuild the question-bank index
+  hiring scorecard compare                             # rank all candidates
+
+For the rest, open your editor's AI agent picker, select "Hiring Assistant",
+and ask in plain language — e.g. "help me evaluate and create the first
+interview preparation for Jane Doe". It follows
+.github/agents/hiring-assistant.agent.md, reads the CV, and runs these same
+commands for you as part of the conversation, adding only the judgment
+(fit, flags, tailored questions, scoring):
     hiring prep --name "Jane Doe" --seniority senior     # prep file (fit, flags, questions)
-    hiring index                                         # rebuild the question-bank index
     hiring scorecard init    --name "Jane Doe" --round 1 # after interview 1
     hiring scorecard init    --name "Jane Doe" --round 2 # after interview 2
     hiring scorecard summary --name "Jane Doe"           # weighted score + recommendation
-    hiring scorecard compare                             # rank all candidates
-  hiring dashboard                                     # you can run this yourself anytime to browse it all
 
 Run 'hiring <command> -h' for details and options on any command.
 """
@@ -38,8 +46,10 @@ def build_parser() -> argparse.ArgumentParser:
         prog="hiring",
         description=(
             "Deterministic toolkit for a modular technical hiring process: "
-            "CV -> prep -> interviews -> scorecard. Team-specific content (profile, "
-            "questions, scoring, templates) lives in a team pack under teams/<id>/."
+            "CV -> prep -> interviews -> scorecard. Every command works standalone; "
+            "an AI coding agent (see epilog) is optional and only adds judgment on "
+            "top. Team-specific content (profile, questions, scoring, templates) "
+            "lives in a team pack under teams/<id>/."
         ),
         epilog=EPILOG,
         formatter_class=argparse.RawDescriptionHelpFormatter,

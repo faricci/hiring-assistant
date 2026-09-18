@@ -47,6 +47,14 @@
   .btn:hover { background: #3b5bdb; }
   .muted { color: #6b7280; font-size: 13px; }
   .pill { display:inline-block; background:#eef0f3; border-radius: 20px; padding: 2px 10px; font-size: 12px; margin: 2px; }
+  .split { display: flex; gap: 16px; margin: 16px 0; flex-wrap: wrap; }
+  .box { flex: 1; min-width: 260px; border-radius: 10px; padding: 16px; }
+  .box.solo { background: #eefaf0; border: 1px solid #b8e6c1; }
+  .box.agent { background: #eef1fd; border: 1px solid #c3ccf7; }
+  .box h4 { margin-bottom: 6px; }
+  .box p { font-size: 13px; color: #4a5160; margin-bottom: 8px; }
+  .box code.prompt { display: block; background: #fff; border: 1px dashed #9aa4c9; border-radius: 6px;
+                      padding: 8px 10px; font-size: 12.5px; margin-top: 6px; }
 </style>
 </head>
 <body>
@@ -79,6 +87,25 @@ const HOME = `
   <div class="step"><span class="n">3</span><h4>Interview 1</h4><p>Knowledge &amp; motivation, career path, behaviour.</p></div>
   <div class="step"><span class="n">4</span><h4>Interview 2</h4><p>Technical exercises only.</p></div>
   <div class="step"><span class="n">5</span><h4>Take-home + transcript</h4><p>Optional exercise, then transcript → scorecard.</p></div>
+</div>
+
+<h2>Deterministic first, AI agent optional</h2>
+<p>This toolkit is <b>deterministic at its core</b>: every command below runs standalone, no AI involved. An AI coding agent is an optional layer on top, useful only for the judgment-heavy steps.</p>
+<div class="split">
+  <div class="box solo">
+    <h4>🧑‍💻 You, autonomously — no agent needed</h4>
+    <p>Setup, browsing this dashboard, and converting CVs are mechanical. Run them yourself, anytime:</p>
+    <div class="cmd">hiring setup
+hiring dashboard
+hiring cv2md candidates/cv_pdf/cv.pdf
+hiring index
+hiring scorecard compare</div>
+  </div>
+  <div class="box agent">
+    <h4>🤖 With an AI agent — for judgment steps</h4>
+    <p>In your editor, select the <b>"Hiring Assistant"</b> agent and ask in plain language. It follows <code>.github/agents/hiring-assistant.agent.md</code>, reads the CV, and runs <code>prep</code> / <code>scorecard</code> for you while adding the judgment (fit, flags, tailored questions, scoring):</p>
+    <code class="prompt">"help me evaluate and create the first interview preparation for Jane Doe"</code>
+  </div>
 </div>
 
 <h2>Commands</h2>

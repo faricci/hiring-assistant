@@ -24,10 +24,14 @@ AI agent does the judgment (read the CV, tailor questions, evaluate the transcri
 Requires **Python 3.9+**. No third-party packages for the core commands (PDF
 conversion is the only optional dependency).
 
-> These commands are shown for reference. In practice you only run `setup`
-> yourself, once; from then on you talk to the AI agent in your editor (e.g. "prep
-> Jane Doe's CV") and it runs `cv2md`, `prep`, `index` and `scorecard` for you as
-> part of the conversation, mixing them with its own reading/judgment steps.
+> These commands are shown for reference. In practice: `setup`, `dashboard`,
+> `cv2md` and `index` are mechanical, run them yourself, anytime, no AI needed.
+> For the judgment-heavy steps (interview prep, scoring), select the **Hiring
+> Assistant** agent in your editor and ask in plain language, e.g. "help me
+> evaluate and create the first interview preparation for Jane Doe" — it follows
+> [.github/agents/hiring-assistant.agent.md](.github/agents/hiring-assistant.agent.md),
+> reads the CV, and runs `prep`/`scorecard` for you as part of the conversation,
+> mixing them with its own reading/judgment steps.
 
 ```bash
 # 1. Configure: pick a team pack and (optionally) point to a cloned exercises repo
@@ -110,7 +114,10 @@ Run `python hiring.py dashboard` to serve the project root and open
 links (team profile, question bank, templates) load, since `file://` blocks
 that. Use `--port` to change the port and `--no-browser` to skip auto-opening.
 It shows the process overview, command cheat-sheet, and a local file viewer
-for prep files and scorecards (nothing is uploaded).
+for prep files and scorecards (nothing is uploaded). It also lays out which
+steps you run yourself (setup, dashboard, cv2md, index — no AI needed) versus
+which ones benefit from asking the "Hiring Assistant" agent (prep, scorecard —
+judgment-heavy steps).
 
 ## Principles
 
