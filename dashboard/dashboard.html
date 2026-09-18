@@ -70,6 +70,8 @@
   <div class="nav" data-file="/teams/devops-platform/templates/interview-en.md">📝 Template (EN)</div>
   <div class="nav" data-file="/teams/README.md">🧩 Add a team</div>
   <div class="nav" data-file="/exercises/README.md">🏋️ Exercises</div>
+  <div class="cat">Candidate files (served mode)</div>
+  <div id="candidate-nav"></div>
   <div class="foot">
     Runs offline. Candidate files load locally via your browser and are never uploaded.
   </div>
@@ -183,7 +185,43 @@ document.querySelectorAll('.nav').forEach(el => {
   });
 });
 
+const CANDIDATE_ICONS = {
+  'CV': '📄', 'Interview prep': '📝', 'Scorecard': '🗂️',
+  'Take-home': '🏋️', 'Transcript': '🎙️',
+};
+
+async function loadCandidateFiles() {
+  const nav = document.getElementById('candidate-nav');
+  try {
+    const res = await fetch('/api/candidate-files');
+    if (!res.ok) throw new Error(res.status);
+    const files = await res.json();
+    if (!files.length) {
+      nav.innerHTML = '<div class="muted" style="padding:8px 20px;">No candidate files yet.</div>';
+      return;
+    }
+    nav.innerHTML = '';
+    files.forEach(f => {
+      const el = document.createElement('div');
+      el.className = 'nav';
+      el.dataset.file = f.path;
+      const icon = CANDIDATE_ICONS[f.kind] || '📎';
+      el.textContent = `${icon} ${f.kind}: ${f.name}`;
+      el.addEventListener('click', () => {
+        document.querySelectorAll('.nav').forEach(n => n.classList.remove('active'));
+        el.classList.add('active');
+        showFile(f.path);
+      });
+      nav.appendChild(el);
+    });
+  } catch (e) {
+    nav.innerHTML = '<div class="muted" style="padding:8px 20px;">' +
+      'Needs served mode — run <code>python hiring.py dashboard</code>.</div>';
+  }
+}
+
 showHome();
+loadCandidateFiles();
 </script>
 </body>
 </html>
